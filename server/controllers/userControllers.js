@@ -8,14 +8,14 @@ const userControllers = {
       const user = await User.create( { name, email, password, passwordConfirmation } );
 
       res.status( 201 ).json( {
-        status: 'success',
+        success: true,
         data: {
           user
         }
       } );
     } catch ( err ) {
       res.status( 400 ).json( {
-        status: 'fail',
+        success: false,
         message: err
       } );
     }

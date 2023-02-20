@@ -62,6 +62,13 @@ function Register () {
     }
   };
 
+  React.useEffect( () => {
+    const token = localStorage.getItem( 'token' );
+    if ( token ) {
+      window.location.href = '/';
+    }
+  }, [] );
+
   return (
     <div className='h-screen bg-green-500 flex items-center justify-center'>
       <div className='bg-white shadow-md p-5 flex flex-col gap-3 w-96'>

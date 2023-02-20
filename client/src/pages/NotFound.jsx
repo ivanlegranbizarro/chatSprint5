@@ -14,8 +14,8 @@ function NotFound () {
           alt='Cute dog with a sign that says "404"'
           className='mx-auto'
         />
-        <Link to='/' className='text-center text-green-500 hover:text-green-700'>
-          Go back to home
+        <Link to='/' className='bg-gray-900 text-white p-2 rounded mt-2 text-center'>
+          Go Back Home
         </Link>
       </div>
     </div>

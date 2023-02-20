@@ -15,6 +15,8 @@ function Register () {
       const response = await RegisterUser( user );
       if ( response.success ) {
         alert( 'User created successfully' );
+        localStorage.setItem( 'token', response.data.token );
+        window.location.href = '/';
       } else {
         alert( response.message );
       }

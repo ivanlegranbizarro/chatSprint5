@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginUser } from '../apicalls/users';
-import { toast } from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function Login () {
   const [ user, setUser ] = React.useState( {
@@ -16,10 +17,14 @@ function Login () {
         localStorage.setItem( 'token', response.data.token );
         window.location.href = '/';
       } else {
-        toast.error( response.data.message );
+        toast.error( response.message, {
+          position: 'top-center',
+        } );
       }
     } catch ( error ) {
-      toast.error( error.message );
+      toast.error( error.message, {
+        position: 'top-center',
+      } );
     }
   };
 
@@ -47,6 +52,7 @@ function Login () {
         <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2' onClick={login}>
           Login
         </button>
+        <ToastContainer />
         <p className='text-sm mt-2'>
           Don't have an account yet?{' '}
           <Link to='/register' className='text-green-500 hover:text-green-700'>

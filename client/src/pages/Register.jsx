@@ -1,7 +1,6 @@
 import React from 'react';
 import { RegisterUser } from '../apicalls/users';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 
 function Register () {
   const [ user, setUser ] = React.useState( {
@@ -10,18 +9,65 @@ function Register () {
     password: '',
     passwordConfirmation: ''
   } );
+  const [ nameError, setNameError ] = React.useState( '' );
+  const [ emailError, setEmailError ] = React.useState( '' );
+  const [ passwordError, setPasswordError ] = React.useState( '' );
+
+  const validateName = ( name ) => {
+    if ( name.length < 3 ) {
+      setNameError( 'Name must be at least 3 characters long' );
+      return false;
+    }
+    if ( name.length > 12 ) {
+      setNameError( 'Name must be at most 12 characters long' );
+      return false;
+    }
+    setNameError( '' );
+    return true;
+  };
+
+  const validateEmail = ( email ) => {
+    const regex = /\S+@\S+\.\S+/;
+    if ( !regex.test( email ) ) {
+      setEmailError( 'Invalid email address' );
+      return false;
+    }
+    setEmailError( '' );
+    return true;
+  };
+
+  const validatePassword = ( password ) => {
+    if ( password.length < 6 ) {
+      setPasswordError( 'Password must be at least 6 characters long' );
+      return false;
+    }
+    if ( password.length > 12 ) {
+      setPasswordError( 'Password must be at most 12 characters long' );
+      return false;
+    }
+    setPasswordError( '' );
+    return true;
+  };
 
   const register = async () => {
+    const nameValid = validateName( user.name );
+    const emailValid = validateEmail( user.email );
+    const passwordValid = validatePassword( user.password );
+
+    if ( !nameValid || !emailValid || !passwordValid ) {
+      return;
+    }
+
     try {
       const response = await RegisterUser( user );
       if ( response.success ) {
         localStorage.setItem( 'token', response.data.token );
         window.location.href = '/';
       } else {
-        toast.error( response.data.message );
+        console.log( response.message );
       }
     } catch ( error ) {
-      toast.error( error.message );
+      console.log( error.message );
     }
   };
 
@@ -33,38 +79,40 @@ function Register () {
         <input type="text"
           value={user.name}
           onChange={e => setUser( { ...user, name: e.target.value } )}
+          onBlur={e => validateName( e.target.value )}
           placeholder='Enter your name'
           className='border border-gray-400 p-2 rounded'
         />
+        {nameError && <p className='text-red-500'>{nameError}</p>}
         <input type="email"
           value={user.email}
           onChange={e => setUser( { ...user, email: e.target.value } )}
+          onBlur={e => validateEmail( e.target.value )}
           placeholder='Enter your email'
           className='border border-gray-400 p-2 rounded'
         />
+        {emailError && <p className='text-red-500'>{emailError}</p>}
         <input type="password"
           value={user.password}
           onChange={e => setUser( { ...user, password: e.target.value } )}
+          onBlur={e => validatePassword( e.target.value )}
           placeholder='Enter your password'
           className='border border-gray-400 p-2 rounded'
         />
-        < input type="password"
+        {passwordError && <p className='text-red-500'>{passwordError}</p>}
+        <input type="password"
           value={user.passwordConfirmation}
           onChange={e => setUser( { ...user, passwordConfirmation: e.target.value } )}
           placeholder='Confirm your password'
           className='border border-gray-400 p-2 rounded'
         />
-
-        <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2' onClick={register}>Register</button>
-        <p className='text-sm mt-2'>
-          Have you an account already?{' '}
-          <Link to='/login' className='text-green-500 hover:text-green-700'>
-            Login
-          </Link>
-        </p>
+        <button onClick={register} className='bg-green-500 text-white p-2 rounded'>Register</button>
+        <p>Already have an account? <Link to='/login'>Login</Link></p>
       </div>
     </div>
   );
 }
 
 export default Register;
+
+

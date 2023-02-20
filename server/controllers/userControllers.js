@@ -1,5 +1,6 @@
 const User = require( '../models/userModel' );
 const signToken = require( '../helpers/jwt' );
+const protect = require( '../middlewares/authMiddleware' );
 
 const userControllers = {
   register: async ( req, res ) => {
@@ -65,6 +66,25 @@ const userControllers = {
       } );
     }
   },
+
+  getCurrentUser: async ( req, res ) => {
+    try {
+      const user = await User.findById( req.user.id );
+
+      res.status( 200 ).json( {
+        success: true,
+        data: {
+          user,
+          message: 'User retrieved'
+        }
+      } );
+    } catch ( err ) {
+      res.status( 400 ).json( {
+        success: false,
+        message: err.message
+      } );
+    }
+  }
 };
 
 module.exports = userControllers;

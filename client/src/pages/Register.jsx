@@ -1,8 +1,9 @@
 import React from 'react';
 import { RegisterUser } from '../apicalls/users';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register () {
+  const navigate = useNavigate();
   const [ user, setUser ] = React.useState( {
     name: '',
     email: '',
@@ -53,7 +54,7 @@ function Register () {
       const response = await RegisterUser( user );
       if ( response.success ) {
         localStorage.setItem( 'token', response.data.token );
-        window.location.href = '/';
+        navigate( '/' );
       } else {
         console.log( response.message );
       }
@@ -65,7 +66,7 @@ function Register () {
   React.useEffect( () => {
     const token = localStorage.getItem( 'token' );
     if ( token ) {
-      window.location.href = '/';
+      navigate( '/' );
     }
   }, [] );
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoginUser } from '../apicalls/users';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 function Login () {
+  const navigate = useNavigate();
   const [ user, setUser ] = React.useState( {
     email: '',
     password: '',
@@ -15,7 +16,7 @@ function Login () {
       const response = await LoginUser( user );
       if ( response.success ) {
         localStorage.setItem( 'token', response.data.token );
-        window.location.href = '/';
+        navigate( '/' );
       } else {
         toast.error( response.message, {
           position: 'top-center',
@@ -31,7 +32,7 @@ function Login () {
   React.useEffect( () => {
     const token = localStorage.getItem( 'token' );
     if ( token ) {
-      window.location.href = '/';
+      navigate( '/' );
     }
   }, [] );
 

@@ -32,7 +32,7 @@ const userControllers = {
       const user = await User.findOne( { email } );
 
       if ( !user ) {
-        res.status( 404 ).json( {
+        return res.status( 404 ).json( {
           success: false,
           message: 'User not found'
         } );
@@ -41,7 +41,7 @@ const userControllers = {
       const isCorrect = await user.correctPassword( password, user.password );
 
       if ( !isCorrect ) {
-        res.status( 400 ).json( {
+        return res.status( 400 ).json( {
           success: false,
           message: 'Incorrect password'
         } );

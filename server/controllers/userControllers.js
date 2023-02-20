@@ -20,7 +20,7 @@ const userControllers = {
     } catch ( err ) {
       res.status( 400 ).json( {
         success: false,
-        message: err
+        message: err.message
       } );
     }
   },
@@ -59,7 +59,7 @@ const userControllers = {
     } catch ( err ) {
       res.status( 400 ).json( {
         success: false,
-        message: err
+        message: err.message
       } );
     }
   },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { RegisterUser } from '../apicalls/users';
 import { Link } from 'react-router-dom';
 
 function Register () {
@@ -8,6 +9,19 @@ function Register () {
     password: '',
     passwordConfirmation: ''
   } );
+
+  const register = async () => {
+    try {
+      const response = await RegisterUser( user );
+      if ( response.success ) {
+        alert( 'User created successfully' );
+      } else {
+        alert( response.message );
+      }
+    } catch ( error ) {
+      alert( error.message );
+    }
+  };
 
   return (
     <div className='h-screen bg-green-500 flex items-center justify-center'>
@@ -39,7 +53,7 @@ function Register () {
           className='border border-gray-400 p-2 rounded'
         />
 
-        <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2'>Register</button>
+        <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2' onClick={register}>Register</button>
         <p className='text-sm mt-2'>
           Have you an account already?{' '}
           <Link to='/login' className='text-green-500 hover:text-green-700'>

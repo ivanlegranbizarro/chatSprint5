@@ -33,7 +33,6 @@ function Login () {
       } );
     }
   };
-
   React.useEffect( () => {
     const token = localStorage.getItem( 'token' );
     if ( token ) {
@@ -46,6 +45,7 @@ function Login () {
       }
     }
   }, [] );
+
 
   return (
     <div className='h-screen bg-green-500 flex items-center justify-center'>

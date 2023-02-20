@@ -48,22 +48,9 @@ function ProtectedRoutes ( { children } ) {
   }, [] );
 
   return (
-    <div className='h-screen w-screen bg-gray-100 p-2'>
-      <div className='flex justify-between p-5'>
-        <div className='flex items-center gap-1'>
-          <i className='ri-message-3-line text-2xl'></i>
-          <h1 className='text-green-500 text-2xl uppercase font-semibold'>Chat</h1>
-        </div>
-        <div className='flex gap-1 text-xl'>
-          <i className='ri-shield-user-line'></i>
-          <h1 className='underline'>{user?.name}</h1>
-        </div>
-      </div>
-      <div className='p-5'>
-        {/* content */}
-        {isAuthenticated && children}
-        <ToastContainer />
-      </div>
+    <div>
+      {/* content */}
+      {isAuthenticated && children}
     </div>
   );
 }

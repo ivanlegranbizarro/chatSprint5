@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NotFound () {
   return (
@@ -13,9 +14,9 @@ function NotFound () {
           alt='Cute dog with a sign that says "404"'
           className='mx-auto'
         />
-        <button className='bg-gray-900 text-white p-2 rounded mt-2'>
-          Go Back Home
-        </button>
+        <Link to='/' className='text-center text-green-500 hover:text-green-700'>
+          Go back to home
+        </Link>
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ function Register () {
     try {
       const response = await RegisterUser( user );
       if ( response.success ) {
-        toast.success( 'Register successful' );
         localStorage.setItem( 'token', response.data.token );
         window.location.href = '/';
       } else {

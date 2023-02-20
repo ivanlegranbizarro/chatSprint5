@@ -13,7 +13,6 @@ function Login () {
     try {
       const response = await LoginUser( user );
       if ( response.success ) {
-        toast.success( 'Login successful' );
         localStorage.setItem( 'token', response.data.token );
         window.location.href = '/';
       } else {

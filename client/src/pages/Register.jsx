@@ -67,6 +67,8 @@ function Register () {
     const token = localStorage.getItem( 'token' );
     if ( token ) {
       navigate( '/' );
+    } else {
+      navigate( '/register' );
     }
   }, [] );
 

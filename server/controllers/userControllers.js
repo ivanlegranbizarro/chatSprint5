@@ -14,7 +14,8 @@ const userControllers = {
         success: true,
         data: {
           user,
-          token
+          token,
+          message: 'User created'
         }
       } );
     } catch ( err ) {
@@ -28,7 +29,7 @@ const userControllers = {
   login: async ( req, res ) => {
     const { email, password } = req.body;
     try {
-      const user = findOne( { email } );
+      const user = await User.findOne( { email } );
 
       if ( !user ) {
         res.status( 404 ).json( {
@@ -52,7 +53,8 @@ const userControllers = {
         success: true,
         data: {
           user,
-          token
+          token,
+          message: 'User logged in'
         }
       } );
 

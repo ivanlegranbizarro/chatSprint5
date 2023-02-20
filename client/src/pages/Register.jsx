@@ -6,6 +6,7 @@ function Register () {
     name: '',
     email: '',
     password: '',
+    passwordConfirmation: ''
   } );
 
   return (
@@ -31,6 +32,13 @@ function Register () {
           placeholder='Enter your password'
           className='border border-gray-400 p-2 rounded'
         />
+        < input type="password"
+          value={user.passwordConfirmation}
+          onChange={e => setUser( { ...user, passwordConfirmation: e.target.value } )}
+          placeholder='Confirm your password'
+          className='border border-gray-400 p-2 rounded'
+        />
+
         <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2'>Register</button>
         <p className='text-sm mt-2'>
           Have you an account already?{' '}

@@ -3,8 +3,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
+import { Toaster } from 'react-hot-toast';
 
 function App () {
+  <Toaster position='top-center' reverseOrder={false} />;
   return (
     <div>
       <BrowserRouter>

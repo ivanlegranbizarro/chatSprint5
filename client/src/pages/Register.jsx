@@ -1,6 +1,7 @@
 import React from 'react';
 import { RegisterUser } from '../apicalls/users';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 function Register () {
   const [ user, setUser ] = React.useState( {
@@ -14,14 +15,14 @@ function Register () {
     try {
       const response = await RegisterUser( user );
       if ( response.success ) {
-        alert( 'User created successfully' );
+        toast.success( 'Register successful' );
         localStorage.setItem( 'token', response.data.token );
         window.location.href = '/';
       } else {
-        alert( response.message );
+        toast.error( response.data.message );
       }
     } catch ( error ) {
-      alert( error.message );
+      toast.error( error.message );
     }
   };
 

@@ -1,12 +1,10 @@
 import React from 'react';
 import { GetCurrentUser } from '../apicalls/users';
-import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 function ProtectedRoutes ( { children } ) {
   const [ user, setUser ] = React.useState( null );
-  const navigate = useNavigate();
   const [ isAuthenticated, setIsAuthenticated ] = React.useState( false );
 
   const getCurrentUser = async () => {
@@ -19,14 +17,14 @@ function ProtectedRoutes ( { children } ) {
         toast.error( response.message, {
           position: 'top-center',
         } );
-        navigate( '/login' );
+        window.location.href = '/login';
         return false;
       }
     } catch ( error ) {
       toast.error( error.message, {
         position: 'top-center',
       } );
-      navigate( '/login' );
+      window.location.href = '/login';
       return false;
     }
   };
@@ -38,7 +36,7 @@ function ProtectedRoutes ( { children } ) {
         setIsAuthenticated( result );
       } );
     } else {
-      navigate( '/login' );
+      window.location.href = '/login';
     }
   }, [] );
 

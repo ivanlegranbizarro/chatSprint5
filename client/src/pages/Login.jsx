@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { LoginUser } from '../apicalls/users';
 import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { hideLoader, showLoader } from '../redux/loaderSlice';
+import { useDispatch } from 'react-redux';
 
 function Login () {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [ user, setUser ] = React.useState( {
     email: '',
     password: '',
@@ -13,16 +15,19 @@ function Login () {
 
   const login = async () => {
     try {
+      dispatch( showLoader() );
       const response = await LoginUser( user );
+      dispatch( hideLoader() );
       if ( response.success ) {
         localStorage.setItem( 'token', response.data.token );
-        navigate( '/' );
+        window.location.href = '/';
       } else {
         toast.error( response.message, {
           position: 'top-center',
         } );
       }
     } catch ( error ) {
+      dispatch( hideLoader() );
       toast.error( error.message, {
         position: 'top-center',
       } );
@@ -32,13 +37,15 @@ function Login () {
   React.useEffect( () => {
     const token = localStorage.getItem( 'token' );
     if ( token ) {
-      navigate( '/' );
+      if ( window.location.pathname === '/login' ) {
+        window.location.href = '/';
+      }
     } else {
-      navigate( '/login' );
+      if ( window.location.pathname === '/' ) {
+        window.location.href = '/login';
+      }
     }
-
   }, [] );
-
 
   return (
     <div className='h-screen bg-green-500 flex items-center justify-center'>

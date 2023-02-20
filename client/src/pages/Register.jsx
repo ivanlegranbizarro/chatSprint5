@@ -1,8 +1,11 @@
 import React from 'react';
 import { RegisterUser } from '../apicalls/users';
 import { Link, useNavigate } from 'react-router-dom';
+import { hideLoader, showLoader } from '../redux/loaderSlice';
+import { useDispatch } from 'react-redux';
 
 function Register () {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ user, setUser ] = React.useState( {
     name: '',
@@ -51,7 +54,9 @@ function Register () {
 
   const register = async () => {
     try {
+      dispatch( showLoader() );
       const response = await RegisterUser( user );
+      dispatch( hideLoader() );
       if ( response.success ) {
         localStorage.setItem( 'token', response.data.token );
         navigate( '/' );
@@ -59,6 +64,7 @@ function Register () {
         console.log( response.message );
       }
     } catch ( error ) {
+      dispatch( hideLoader() );
       console.log( error.message );
     }
   };

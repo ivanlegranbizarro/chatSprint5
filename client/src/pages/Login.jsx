@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Login() {
-  const [user, setUser] = React.useState({
+function Login () {
+  const [ user, setUser ] = React.useState( {
     email: '',
     password: '',
-  });
+  } );
 
   return (
     <div className='h-screen bg-green-500 flex items-center justify-center'>
@@ -14,20 +15,26 @@ function Login() {
         <input
           type='email'
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={( e ) => setUser( { ...user, email: e.target.value } )}
           placeholder='Enter your email'
           className='border border-gray-400 p-2 rounded'
         />
         <input
           type='password'
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          onChange={( e ) => setUser( { ...user, password: e.target.value } )}
           placeholder='Enter your password'
           className='border border-gray-400 p-2 rounded'
         />
         <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2'>
           Login
         </button>
+        <p className='text-sm mt-2'>
+          Don't have an account yet?{' '}
+          <Link to='/register' className='text-green-500 hover:text-green-700'>
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );

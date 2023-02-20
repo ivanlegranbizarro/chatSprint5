@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Register () {
   const [ user, setUser ] = React.useState( {
@@ -31,6 +32,12 @@ function Register () {
           className='border border-gray-400 p-2 rounded'
         />
         <button className='bg-green-500 hover:bg-green-700 text-white p-2 rounded mt-2'>Register</button>
+        <p className='text-sm mt-2'>
+          Have you an account already?{' '}
+          <Link to='/login' className='text-green-500 hover:text-green-700'>
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
